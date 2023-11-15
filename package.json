@@ -13,7 +13,8 @@
     "test:CommonsBudget": "NODE_ENV=test node_modules/.bin/hardhat test test/CommonsBudget.test.ts",
     "prettier": "node_modules/.bin/prettier --write --config .prettierrc 'contracts/**/*.sol' 'test/**/*.ts' 'utils/**/*.ts' 'scripts/**/*.ts'",
     "deploy:local": "yarn hardhat run --network localnet scripts/deploy.ts",
-    "deploy:commons:local": "yarn hardhat run --network localnet scripts/deploy_commons.ts"
+    "deploy:commons:local": "yarn hardhat run --network localnet scripts/deploy_commons.ts",
+    "check:local": "yarn hardhat run --network localnet scripts/check_budget.ts"
   },
   "repository": {
     "type": "git+https://github.com/poohgithub/dao-budget-contracts.git",
