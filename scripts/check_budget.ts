@@ -4,10 +4,14 @@
 // When running the script with `npx hardhat run <script>` you'll find the Hardhat
 // Runtime Environment's members available in the global scope.
 
+import { NonceManager } from "@ethersproject/experimental";
 import { BigNumber, Wallet } from "ethers";
 import { ethers } from "hardhat";
+import { GasPriceManager } from "../utils/GasPriceManager";
 
 async function main() {
+    const provider = ethers.provider;
+    
     const issuedFactory = await ethers.getContractFactory("IssuedContract");
     const commonsBudgetFactory = await ethers.getContractFactory("CommonsBudget");
 
@@ -15,6 +19,10 @@ async function main() {
     const commonsBudget = await commonsBudgetFactory.attach(process.env.COMMONS_BUDGET_CONTRACT || "");
     const admin = new Wallet(process.env.ADMIN_KEY || "");
     const user = new Wallet(process.env.USER_KEY || "");
+
+    const adminSigner = new NonceManager(new GasPriceManager(provider.getSigner(admin.address)));
+    const chainId = await await issued.connect(adminSigner).getChainId();
+    console.log("ChainId:", chainId)
 
     const cent = BigNumber.from(10).pow(18);
     const issuedBalance = BigNumber.from(await ethers.provider.getBalance(issued.address));

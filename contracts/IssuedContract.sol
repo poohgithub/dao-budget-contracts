@@ -23,7 +23,7 @@ contract IssuedContract is IERC165, IIssuedContract {
 
     constructor() {
         owner = msg.sender;
-        commonsBudgetAddress = address(0);
+        commonsBudgetAddress = address(0);    
     }
 
     function supportsInterface(bytes4 interfaceId) external pure override returns (bool) {
@@ -61,6 +61,11 @@ contract IssuedContract is IERC165, IIssuedContract {
     /// @param newOwner the address of the new owner
     function setOwner(address newOwner) external override onlyOwner {
         owner = newOwner;
+    }
+
+    /// @notice get chain id for teset
+    function getChainId() external view override returns (uint256) {
+        return block.chainid;
     }
 
     /// @notice get the address of the Commons Budget contract

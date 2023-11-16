@@ -11,6 +11,9 @@ interface IIssuedContract {
     /// @param newOwner the address of the new owner
     function setOwner(address newOwner) external;
 
+    /// @notice get chain id for teset
+    function getChainId() external view returns (uint256);
+
     /// @notice get the address of the Commons Budget contract
     /// @return the address of the Commons Budget contract
     function getCommonsBudgetAddress() external returns (address);
