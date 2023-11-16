@@ -4,6 +4,7 @@ pragma solidity ^0.8.0;
 
 import "@openzeppelin/contracts/utils/introspection/IERC165.sol";
 import "./IIssuedContract.sol";
+import "hardhat/console.sol";
 
 contract IssuedContract is IERC165, IIssuedContract {
     event Received(address, uint256);
@@ -24,6 +25,7 @@ contract IssuedContract is IERC165, IIssuedContract {
     constructor() {
         owner = msg.sender;
         commonsBudgetAddress = address(0);
+        console.log("chainId: %s", block.chainid);        
     }
 
     function supportsInterface(bytes4 interfaceId) external pure override returns (bool) {
@@ -61,6 +63,11 @@ contract IssuedContract is IERC165, IIssuedContract {
     /// @param newOwner the address of the new owner
     function setOwner(address newOwner) external override onlyOwner {
         owner = newOwner;
+    }
+
+    /// @notice get chain id for teset
+    function getChainId() external view override returns (uint256) {
+        return block.chainid;
     }
 
     /// @notice get the address of the Commons Budget contract
